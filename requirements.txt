@@ -1,0 +1,12 @@
+pandas
+re
+nltk
+unicodedata
+matplotlib
+seaborn
+wordcloud
+collections
+transformers
+tqdm
+scikit-learn
+bertopic
