@@ -361,6 +361,3 @@ stacked_plot(sent_top_barplot, 'Proporção dos sentimentos para os 10 produtos 
 stacked_plot(sent_bottom_barplot, 'Proporção dos sentimentos para os 10 produtos menos avaliados')
 # identificação dos principais temas de interesse/dor
 
-
-#--------------------Resumo das avaliações por produto
-# modelo de summarization
