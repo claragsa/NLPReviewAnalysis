@@ -1,17 +1,6 @@
 # NLPReviewAnalysis
 Análise de avaliações com NLP
 FALTA FAZER:
-### **Visualização e Geração de Insights**
-
-1. **Sentimento geral por produto ou categoria**
-    - **Insight**:
-        - Quais produtos ou marcas têm mais avaliações **positivas**?
-        - Quais têm mais **negativas**?
-    - **Ação**
-        - Reforçar marketing para os produtos bem avaliados.
-        - Investigar ou reformular os produtos com avaliações ruins.
-    - **Como tirar**:
-        - Agrupe as avaliações por produto/marca e calcule a **proporção** de sentimentos positivos/negativos.
 2. **Identificação dos principais temas de interesse ou dor**
     - **Insight**:
         - Quais são os principais aspectos mencionados nas avaliações?
@@ -31,14 +20,6 @@ FALTA FAZER:
         - Use o **Topic Modeling** para mapear os temas recorrentes e associá-los aos sentimentos.
 
 ---
-
-### 🧠 **7. Resumo por IA**
-
-- Treinar um modelo de summarization, baseada nos textos das avaliações agrupadas por id de produto
-- Input: texto das avaliações do produto→ Output: resumo do q as opiniões falam
-
----
-
 ### 📝 **8. Conclusão**
 
 - Resuma os principais achados.
