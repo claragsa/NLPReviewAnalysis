@@ -1,6 +1,7 @@
 # NLPReviewAnalysis
 Análise de avaliações com NLP
 FALTA FAZER:
+
 2. **Identificação dos principais temas de interesse ou dor**
     - **Insight**:
         - Quais são os principais aspectos mencionados nas avaliações?
