@@ -1,6 +1,5 @@
 #--------------------Bibliotecas necessárias
 import pandas as pd
-import numpy as np
 import re
 import nltk
 from nltk.tokenize import word_tokenize
@@ -12,6 +11,14 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 import unicodedata
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud, STOPWORDS
+from collections import Counter
+from transformers import pipeline
+from tqdm import tqdm
+from sklearn.feature_extraction.text import CountVectorizer
+from bertopic import BERTopic
 
 #--------------------Coleta de dados
 df_info = pd.read_csv(r'product_info.csv')
