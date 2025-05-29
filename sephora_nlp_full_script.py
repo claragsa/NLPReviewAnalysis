@@ -294,4 +294,66 @@ def common_words_by_sentiment(df, sentiment_column='sentiment', text_column = 'r
 common_words_review5 = common_words_by_sentiment(df_reviews5, sentiment_column = 'sentiment', text_column='review_text')
 
 
-#--------------------Visualizações
+#--------------------Geração de insights
+# sentimento geral por produto
+sent_count = df_reviews5.groupby(by=['product_name','sentiment']).size().reset_index(name='count')
+
+total_sent = sent_count.groupby(by='product_name')['count'].sum().reset_index(name='total')
+sent_count = sent_count.merge(total_sent, on='product_name')
+sent_count['proportion']=sent_count['count']/sent_count['total']
+
+top_products = total_sent.sort_values(by='total', ascending=False).head(10)['product_name']
+bottom_products = total_sent.sort_values(by='total', ascending=True).head(10)['product_name']
+
+sent_df_barplot = sent_count.pivot(index='product_name', columns= 'sentiment', values='proportion')
+sent_df_barplot = sent_df_barplot.merge(total_sent.set_index('product_name'), left_index=True, right_index=True, how='left')
+
+sent_top_barplot = sent_df_barplot.loc[top_products]
+sent_bottom_barplot = sent_df_barplot.loc[bottom_products]
+sent_top_barplot = sent_top_barplot.fillna(0)
+sent_bottom_barplot = sent_bottom_barplot.fillna(0)
+
+def stacked_plot(data, title):
+    ax=data[['negative', 'neutral', 'positive']].plot(
+        kind = 'bar',
+        stacked = True,
+        color = ['red', 'gray', 'green'],
+        figsize = (12,10)
+    )
+    for idx, row in data.iterrows():
+        cumulative =0
+        for sentiment in ['negative', 'neutral', 'positive']:
+            proportion = row[sentiment]
+            if proportion >0.05:
+                ax.text(
+                    x = list(data.index).index(idx),
+                    y = cumulative + proportion/2,
+                    s = f"{proportion *100:.1f}%",
+                    ha = 'center',
+                    va = 'center',
+                    color = 'white',
+                    fontweight = 'bold'
+                )
+            cumulative += proportion
+    for idx, total in enumerate(data['total']):
+        ax.text(
+            idx,
+            1.02,
+            str(total),
+            ha = 'center',
+            va = 'bottom'
+        )
+    plt.ylabel('Proportion')
+    plt.xlabel('Products')
+    plt.title(title)
+    plt.xticks(rotation = 90)
+    plt.tight_layout()
+    plt.show()
+
+stacked_plot(sent_top_barplot, 'Proporção dos sentimentos para os 10 produtos mais avaliados')
+stacked_plot(sent_bottom_barplot, 'Proporção dos sentimentos para os 10 produtos menos avaliados')
+# identificação dos principais temas de interesse/dor
+
+
+#--------------------Resumo das avaliações por produto
+# modelo de summarization
