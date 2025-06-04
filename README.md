@@ -2,23 +2,7 @@
 Análise de avaliações com NLP
 FALTA FAZER:
 
-2. **Identificação dos principais temas de interesse ou dor**
-    - **Insight**:
-        - Quais são os principais aspectos mencionados nas avaliações?
-            
-            Exemplo:
-            
-            “acne” → dor relacionada.
-            
-            “hydration”, “glow” → benefícios buscados.
-            
-            “cream for eyes” → uso específico.
-            
-    - **Ação**:
-        - Criar campanhas focadas nesses temas (“ideal para acne”, “hidratação intensa”).
-        - Criar novos produtos para as necessidades recorrentes.
-    - **Como tirar**:
-        - Use o **Topic Modeling** para mapear os temas recorrentes e associá-los aos sentimentos.
+ESCREVER INSIGHTS E DOCUMENTAÇÃO
 
 ---
 ### 📝 **8. Conclusão**
