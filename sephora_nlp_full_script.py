@@ -87,42 +87,23 @@ print(df_reviews4.duplicated().sum())
 print('\ndf_reviews5:')
 print(df_reviews5.duplicated().sum())
 
-# produtos com mais avaliações e melhores avaliados
-most_reviews_products = df_info.sort_values(by= 'reviews', ascending=False).head(20)
-print('\nTop 20 produtos com mais avaliações:')
-print(most_reviews_products[['product_id', 'product_name', 'reviews']])
-
-top_products = df_info.sort_values(by= 'rating', ascending=False).head(20)
-print('\nTop 20 produtos melhor avaliados:')
-print(top_products[['product_id', 'product_name', 'rating']])
-
-# quais as marcas tem mais avaliações e quais sao melhores avaliadas
-most_reviews_brands = df_info.sort_values(by= 'reviews', ascending=False).head(20)
-print('\nTop 20 marcas com mais avaliações:')
-print(most_reviews_brands[['brand_id', 'brand_name', 'reviews']])
-
-top_brands = df_info.groupby(['brand_id', 'brand_name']).agg({'rating': 'mean'}).reset_index()
-top_brands = top_brands.sort_values(by='rating', ascending= False).head(20)
-print('\nTop 20 marcas melhor avaliadas:')
-print(top_brands[['brand_id', 'brand_name', 'rating']])
-
 
 #--------------------Limpeza e pré-processamento
 # limpeza dos dados
 df_info.dropna(subset=['rating', 'reviews'], inplace=True)
 
-df_reviews1 = df_reviews1.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
-df_reviews2 = df_reviews2.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
-df_reviews3 = df_reviews3.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
-df_reviews4 = df_reviews4.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
-df_reviews5 = df_reviews5.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
-
-df_reviews1.drop('Unnamed: 0', axis=1, inplace=True)
-df_reviews2.drop('Unnamed: 0', axis=1, inplace=True)
-df_reviews3.drop('Unnamed: 0', axis=1, inplace=True)
-df_reviews4.drop('Unnamed: 0', axis=1, inplace=True)
-df_reviews5.drop('Unnamed: 0', axis=1, inplace=True)
-
+def clean_reviews(df):
+    df = df.dropna(subset=['review_text', 'is_recommended', 'helpfulness'])
+    if 'Unnamed: 0' in df.columns:
+        df.drop('Unnamed: 0', axis=1, inplace=True)
+    if 'submission_time' in df.columns:
+        df['submission_time'] = pd.to_datetime(df['submission_time'])
+    return df
+df_reviews1 = clean_reviews(df_reviews1)
+df_reviews2 = clean_reviews(df_reviews2)
+df_reviews3 = clean_reviews(df_reviews3)
+df_reviews4 = clean_reviews(df_reviews4)
+df_reviews5 = clean_reviews(df_reviews5)
 
 # limpeza do texto
 def clean_text(text):
@@ -145,6 +126,12 @@ df_reviews2['review_text'] = df_reviews2['review_text'].apply(clean_text)
 df_reviews3['review_text'] = df_reviews3['review_text'].apply(clean_text)
 df_reviews4['review_text'] = df_reviews4['review_text'].apply(clean_text)
 df_reviews5['review_text'] = df_reviews5['review_text'].apply(clean_text)
+
+print('\nPrimeiras informações dos dataframes após limpeza:')
+print('Head df_info:')
+print(df_info.head())
+print('\nHead df_reviews1:')
+print(df_reviews1.head())
 
 #--------------------Análise exploratória
 # produtos mais populares por avaliações e melhores notas
@@ -359,5 +346,59 @@ def stacked_plot(data, title):
 
 stacked_plot(sent_top_barplot, 'Proporção dos sentimentos para os 10 produtos mais avaliados')
 stacked_plot(sent_bottom_barplot, 'Proporção dos sentimentos para os 10 produtos menos avaliados')
-# identificação dos principais temas de interesse/dor
 
+
+# identificação dos principais temas de interesse/dor
+topic_sentiment = pd.crosstab(df_reviews5['topic_text'], df_reviews5['sentiment'])
+
+
+#   topicos com mais avaliações
+topic_counts = df_reviews5['topic_text'].value_counts()
+top_topics = topic_counts.head(10).index
+
+top_topic_sent = topic_sentiment.loc[top_topics]
+top_topic_sent_percentage = top_topic_sent.div(top_topic_sent.sum(axis=1), axis=0)*100
+
+if 'Outliers' in top_topic_sent_percentage.index:
+    top_topic_sent_percentage = top_topic_sent_percentage.drop(index='Outliers', axis='index')
+
+plt.figure(figsize=(10,6))
+sns.heatmap(top_topic_sent_percentage, annot=True, cmap='spectral')
+plt.xlabel('Sentiment')
+plt.ylabel('Topics')
+plt.title('Tópicos com a maior quantidade de avaliações')
+plt.show()
+
+#   topicos com mais polarizados (maior diferença entre avaliações positivas e negativas)
+# polarização positiva
+topic_sentiment['diff_pos_neg'] = abs(topic_sentiment['positive'] - topic_sentiment['negative'])
+top_pol_pos_topics = topic_sentiment.sort_values(by='diff_pos_neg', ascending= False).head(10).index.tolist()
+
+top_pol_pos_topic_sent = topic_sentiment.loc[top_pol_pos_topics, ['negative', 'positive', 'neutral']]
+top_pol_pos_topic_sent_percentage = top_pol_pos_topic_sent.div(top_pol_pos_topic_sent.sum(axis=1), axis=0)*100
+
+if 'Outliers' in top_pol_pos_topic_sent_percentage.index:
+    top_pol_pos_topic_sent_percentage = top_pol_pos_topic_sent_percentage.drop(index='Outliers', axis='index')
+
+plt.figure(figsize=(10,6))
+sns.heatmap(top_pol_pos_topic_sent_percentage, annot=True, cmap='YlGnBu')
+plt.xlabel('Sentiment')
+plt.ylabel('Topics')
+plt.title('Tópicos mais polarizados - positivo')
+plt.show()
+
+# polarização negativa
+top_pol_neg_topics = topic_sentiment.sort_values(by='negative', ascending=False).head(10).index.tolist()
+
+top_pol_neg_topic_sent = topic_sentiment.loc[top_pol_neg_topics, ['negative', 'positive', 'neutral']]
+top_pol_neg_topic_sent_percentage = top_pol_neg_topic_sent.div(top_pol_neg_topic_sent.sum(axis=1), axis=0)*100
+
+if 'Outliers' in top_pol_neg_topic_sent_percentage.index:
+    top_pol_neg_topic_sent_percentage = top_pol_neg_topic_sent_percentage.drop(index='Outliers', axis= 'index')
+
+plt.figure(figsize=(10,6))
+sns.heatmap(top_pol_neg_topic_sent_percentage, annot=True, cmap='YlOrRd')
+plt.xlabel('Sentiment')
+plt.ylabel('Topics')
+plt.title('Tópicos mais polarizados - negativos')
+plt.show()
