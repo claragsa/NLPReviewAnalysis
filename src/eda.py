@@ -50,7 +50,7 @@ def plot_most_popular_brands(df_info):
     plt.show()
     return plot_top_brands
 
-def ratings_distribuition(df_info):
+def plot_ratings_distribuition(df_info):
     plt.figure(figsize=(10, 6))
     rating_distribuition = sns.histplot(df_info['rating'], bins= 5)
     plt.title('Rating Distribuition')
@@ -60,7 +60,7 @@ def ratings_distribuition(df_info):
     plt.show()
     return rating_distribuition
 
-def word_cloud(dfs, column = 'review_text'):
+def plot_word_cloud(dfs, column = 'review_text'):
     stopwords_custom = set(STOPWORDS).union(set(['im', 'ive', 'like', 'it', 'its', 'that', 'this', 'and', 'the', 'to', 'a', 'of', 'is', 'for', 'in', 'on', 'with', 'dont', 'make', 'didnt', 'cant']))
 
     all_text = ' '.join(
@@ -82,7 +82,7 @@ def word_cloud(dfs, column = 'review_text'):
     plt.show()
     return wordcloud
 
-def temporal_analysis(df):
+def plot_temporal_analysis(df):
     plot_temporal_analysis = sns.lineplot(data=df, x='submission_time', y='rating')
     plt.title('Avaliação ao longo do tempo')
     plt.xlabel('Ano')
