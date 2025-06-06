@@ -75,7 +75,7 @@ def plot_top_commented_topics(df, topic_col = 'topic_text', sentiment_col ='sent
     plt.title('Topics with most reviews')
     plt.show()
 
-def most_positive_polarized_topics(df, topic_col= 'topic_text', sentiment_col='sentiment', top_n=10):
+def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentiment', top_n=10):
     topic_sentiment = pd.crosstab(df[topic_col], df[sentiment_col])
     topic_sentiment['diff_pos_neg'] = abs(topic_sentiment['positive'] - topic_sentiment['negative'])
     top_pol_pos_topics = topic_sentiment.sort_values(by='diff_pos_neg', ascending= False).head(top_n).index.tolist()
