@@ -1,6 +1,6 @@
 import pandas as pd
 
-def data_load():
+def load_data():
     df_info = pd.read_csv(r'data\product_info.csv')
     df_reviews_files = [
         'data\reviews_0-250.csv',
