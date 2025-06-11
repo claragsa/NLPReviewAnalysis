@@ -30,6 +30,8 @@ O projeto utiliza dois datasets:
 
 ## Análise Exploratória (EDA)
 
+# REFAZER PARTE DE ANALISE EXPLORATORIA
+
 ### Produtos mais populares e melhor avaliados
 
 ![Top 20 produtos mais avaliados](INSERIR_CAMINHO_IMAGEM1)
@@ -111,6 +113,8 @@ O projeto utiliza dois datasets:
 ---
 
 ## Insights e Ações Recomendadas
+
+# REFAZER INSIGHTS COM DF_SAMPLED
 
 ### Para o time de marketing:
 - Potencializar campanhas com os produtos e tópicos mais bem avaliados — especialmente os de **skincare**
