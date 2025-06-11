@@ -63,16 +63,15 @@ def plot_top_commented_topics(df, topic_col = 'topic_text', sentiment_col ='sent
     top_topics = topic_counts.head(10).index
 
     top_topic_sent = topic_sentiment.loc[top_topics]
-    top_topic_sent_percentage = top_topic_sent.div(top_topic_sent.sum(axis=1), axis=0)*100
 
-    if 'Outliers' in top_topic_sent_percentage.index:
-        top_topic_sent_percentage = top_topic_sent_percentage.drop(index='Outliers', axis='index')
+    if 'Outliers' in top_topic_sent.index:
+        top_topic_sent = top_topic_sent.drop(index='Outliers', axis='index')
 
-    plt.figure(figsize=(10,6))
-    sns.heatmap(top_topic_sent_percentage, annot=True, cmap='spectral')
+    plt.figure(figsize=(8,6))
+    sns.heatmap(top_topic_sent.astype(int), annot=True, cmap='Spectral', fmt = 'd')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
-    plt.title('Topics with most reviews')
+    plt.title('Top 10 topics with most reviews')
     plt.show()
 
 def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentiment', top_n=10):
@@ -86,11 +85,11 @@ def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentim
     if 'Outliers' in top_pol_pos_topic_sent_percentage.index:
         top_pol_pos_topic_sent_percentage = top_pol_pos_topic_sent_percentage.drop(index='Outliers', axis='index')
 
-    plt.figure(figsize=(10,6))
+    plt.figure(figsize=(8,6))
     sns.heatmap(top_pol_pos_topic_sent_percentage, annot=True, cmap='YlGnBu')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
-    plt.title('Most polarized topics - positive')
+    plt.title('Top 10 Polarized topics - Positive')
     plt.show()
 
 def plot_most_negative_topics(df, topic_col='topic_text', sentiment_col='sentiment', top_n=10):
