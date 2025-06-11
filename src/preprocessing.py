@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 def clean_info(df):
-    df = df.dropna(subset=['rating', 'reviews'], inplace=True)
+    df = df.dropna(subset=['rating', 'reviews'])
     return df
 
 def clean_reviews(df):
