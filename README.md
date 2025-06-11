@@ -1,25 +1,139 @@
-# NLPReviewAnalysis
-Análise de avaliações com NLP
-- **ETAPA 6 - GERAÇÃO DE INSIGHTS**
-    
-    **Sentimento geral por produto ou categoria**
-    
-    Dentre os 20 produtos mais avaliados, há uma diferença substancial entre as avaliações consideradas positivas e as avaliações consideradas negativas ou neutras. Sendo, em sua maioria, mais de 60% das avaliações negativas. 
-    
-    Os únicos dois produtos dos 20 mais avaliados que nao se encaixam nessa regra é o Trinity + Eye and Lip Enhancer Attachment Bundle e o Youth or Dare Multi-Acid & C Serum, ambos com cerca de 50% de avaliações positivas. 
-    
-    Desse modo, seria interessante fazer uma investigação desses produtos para entender quais são as principais reclamações dos consumidores e possivelmente fazer uma reformulação e, em seguida, uma campanha de marketing divulgando as mudanças.
-    
-    Além disso, é também importante reforçar o marketing dos produtos bem avaliados para que eles sejam cada vez mais comprados.
-    
-    **Identificação dos principais temas de interesse ou dor**
-    
-    Para a identificação dos principais temas de interesse/dor foi feito um heatmap dos topicos levando em consideração os topicos presentes em mais avaliações, topicos com avaliações mais positivas e topicos com avaliações mais negativas. 
-    
-    Desse modo, dentre os topicos presentes na maior quantidade de avaliações temos que a todos os topicos tem o sentimento predominante como positivo de forma substancial, o que tem sido observado ao logo de toda a análise do dataset. Além disso, os principais topicos são referentes a produtos para a pele de modo geral e, mais especificamente, hidratantes, creme para os olhos, mascaras faciais, cleanser, protetor solar, bronzeadores, serums e balms para os lábios. Tendo apenas um único topico que nao se encaixa em skincare que é o topico que abrange as avaliações sobre fragrancias.  
-    
-    Já para os tópicos mais positivamente polarizados, ou seja, que tem mais avaliações positivas do que negativas ou neutras, pode ser visualizado quase os mesmos topicos do que o gráfico com mais avaliações, que abrange produtos para deixar a pele mais macia.
-    
-    Além disso, para os topicos mais negativamente polarizados, ou seja, que o número de avaliações com sentimento negativo é maior do que de positivo, não foi possível juntar dez tópicos que se enquadrassem nesse filtro. Assim, é evidente que poucos produtos tem notas mais baixas. Ademais, o topico com mais sentimentos negativos do que positivos traz o nome nuface, que é a marca do Trinity + Eye and Lip Enhancer Attachment Bundle, o produto com a menor porcentagem de avaliações positivas. Por fim, os outros topicos negativos são referentes ao tamanho das amostras, pedidos de que a formula antiga/original seja trazida de volta e, por ultimo, produtos que podem ter causado algum tipo de alergia.
-    
-    Desse modo, fica evidente a necessidade de fazer um marketing mais reforçado para os produtos de skincare que trazem tantos bons retornos à empresa, tanto no número de consumidores quanto a possibilidade dos consumidores recomprarem na Sephora, já que as avaliações são excelentes. Por fim, é importante identificar quais as medidas cabiveis para resolver as reclamções dos clientes. Visto que a Sephora é uma varejista, uma das medidas poderia ser aumentar a quantidade de amostra distribuida, para que a reclamação sobre o tamanho seja sanada pela maior quantidade.
+# Análise de Avaliações de Produtos da Sephora com NLP e Visualizações
+
+Este projeto tem como objetivo analisar milhares de avaliações de produtos de beleza da Sephora, respondendo a perguntas-chave sobre popularidade, percepção do cliente, tópicos mais discutidos e sentimentos atribuídos pelos usuários. Utilizando técnicas de NLP e análise exploratória, buscamos insights que podem ajudar a empresa em estratégias de marketing e desenvolvimento de produto.
+
+---
+
+## Perguntas de Negócio
+
+- Quais são os produtos com mais avaliações?
+- Quais produtos e marcas são os mais bem avaliados?
+- Qual é o sentimento geral das avaliações por tipo de produto?
+- Quais são os principais tópicos mencionados nas avaliações?
+- Quais tópicos apresentam mais sentimentos positivos ou negativos?
+
+---
+
+## Dados
+
+O projeto utiliza dois datasets:
+
+- `df_info`: Informações dos produtos (nome, marca, nota, número de avaliações, etc.)
+- `dfs_reviews`: Lista com diversos DataFrames contendo as avaliações textuais e metadados (nota, recomendação, data, etc.)
+
+### Pré-processamento
+- Remoção de colunas irrelevantes (`Unnamed: 0`)
+- Eliminação de valores nulos nas colunas críticas (rating, reviews, review_text, etc.)
+- Tokenização, limpeza e normalização dos textos
+
+---
+
+## Análise Exploratória (EDA)
+
+### Produtos mais populares e melhor avaliados
+
+![Top 20 produtos mais avaliados](INSERIR_CAMINHO_IMAGEM1)
+![Top 20 produtos com melhores notas](INSERIR_CAMINHO_IMAGEM2)
+
+💡 Os produtos mais populares não são os mais bem avaliados, sugerindo que nichos específicos têm maior aceitação, enquanto produtos populares sofrem com a média diluída.
+
+---
+
+### Marcas mais populares vs. melhor avaliadas
+
+![Top 20 marcas mais avaliadas](INSERIR_CAMINHO_IMAGEM3)
+![Top 20 marcas com melhores notas](INSERIR_CAMINHO_IMAGEM4)
+
+💡 O padrão se repete com as marcas — as mais avaliadas não são as mais bem avaliadas. Marcas de nicho com público fiel se destacam positivamente.
+
+---
+
+### Distribuição de Notas
+
+![Histograma de notas](INSERIR_CAMINHO_IMAGEM5)
+
+💡 A distribuição é enviesada à direita. A maioria das avaliações possui notas altas, evidenciando alta satisfação geral dos clientes.
+
+---
+
+### Nuvem de Palavras
+
+![Wordcloud das avaliações](INSERIR_CAMINHO_IMAGEM6)
+
+💡 Termos relacionados a “skin”, “cream”, “hydrating”, “love”, “good” predominam. Reforça o sucesso da linha de skincare e o sentimento positivo.
+
+---
+
+### Análise Temporal
+
+![Evolução temporal das avaliações](INSERIR_CAMINHO_IMAGEM7)
+
+💡 Há uma queda abrupta nas notas em 2020 e posterior recuperação. Pode refletir questões externas (como pandemia) ou mudanças de produto/marketing.
+
+---
+
+## Processamento de Linguagem Natural (NLP)
+
+### Sentimento
+
+![Sentimento dos top 20 produtos](INSERIR_CAMINHO_IMAGEM8)
+
+💡 Entre os 20 produtos mais avaliados, mais de 60% das avaliações são negativas — com exceção de apenas dois produtos.
+
+---
+
+### Tópicos com BERTopic
+
+- Foram extraídos **50 tópicos únicos** com a técnica BERTopic para reduzir redundância.
+
+#### Tópicos mais comentados
+
+![Tópicos mais comentados](INSERIR_CAMINHO_IMAGEM9)
+
+💡 Predominam tópicos relacionados a skincare — hidratantes, protetores, séruns, etc.
+
+#### Tópicos mais positivos
+
+![Tópicos mais positivos](INSERIR_CAMINHO_IMAGEM10)
+
+💡 Os mesmos tópicos populares também são os mais bem avaliados.
+
+#### Tópicos mais negativos
+
+![Tópicos mais negativos](INSERIR_CAMINHO_IMAGEM11)
+
+💡 Reclamações giram em torno de:
+- Marca “NuFace”
+- Tamanho das amostras
+- Mudança de fórmula
+- Reações alérgicas
+
+---
+
+## Insights e Ações Recomendadas
+
+### Para o time de marketing:
+- Potencializar campanhas com os produtos e tópicos mais bem avaliados — especialmente os de **skincare**
+- Dar visibilidade a produtos de nicho bem avaliados
+
+### Para o time de produtos/parceiros:
+- Investigar o **Trinity + Eye and Lip Enhancer** e outros com baixa aceitação
+- Considerar **revisar as amostras** distribuídas
+- **Reportar às marcas** problemas sobre fórmulas ou reações alérgicas
+
+---
+
+## Conclusão
+
+A Sephora apresenta uma excelente curadoria de produtos, com altíssimos índices de satisfação dos consumidores. O domínio dos produtos de skincare nas avaliações revela uma oportunidade de reforçar esse segmento. A análise de sentimentos e tópicos provou ser uma ferramenta eficaz para entender dores e desejos dos clientes em escala.
+
+---
+
+## Melhorias Futuras
+
+- Implementar paralelização no cálculo de sentimento para reduzir tempo de execução
+- Realizar análise por faixa etária (caso dados estejam disponíveis)
+- Construir um dashboard interativo com Streamlit ou Power BI
+- Classificação automática de reviews em categorias (skincare, perfume, maquiagem)
+
+---
