@@ -80,13 +80,12 @@ def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentim
     top_pol_pos_topics = topic_sentiment.sort_values(by='diff_pos_neg', ascending= False).head(top_n).index.tolist()
 
     top_pol_pos_topic_sent = topic_sentiment.loc[top_pol_pos_topics, ['negative', 'positive', 'neutral']]
-    top_pol_pos_topic_sent_percentage = top_pol_pos_topic_sent.div(top_pol_pos_topic_sent.sum(axis=1), axis=0)*100
 
-    if 'Outliers' in top_pol_pos_topic_sent_percentage.index:
-        top_pol_pos_topic_sent_percentage = top_pol_pos_topic_sent_percentage.drop(index='Outliers', axis='index')
+    if 'Outliers' in top_pol_pos_topic_sent.index:
+        top_pol_pos_topic_sent = top_pol_pos_topic_sent.drop(index='Outliers', axis='index')
 
     plt.figure(figsize=(8,6))
-    sns.heatmap(top_pol_pos_topic_sent_percentage, annot=True, cmap='YlGnBu')
+    sns.heatmaptop_pol_pos_topic_sent.astype(int), annot=True, cmap='YlGnBu', fmt= 'd')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
     plt.title('Top 10 Polarized topics - Positive')
