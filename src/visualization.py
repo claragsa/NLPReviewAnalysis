@@ -93,17 +93,17 @@ def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentim
 
 def plot_most_negative_topics(df, topic_col='topic_text', sentiment_col='sentiment', top_n=10):
     topic_sentiment = pd.crosstab(df[topic_col], df[sentiment_col])
-    top_pol_neg_topics = topic_sentiment.sort_values(by='negative', ascending=False).head(10).index.tolist()
+    neg_dominant_topics = topic_sentiment[topic_sentiment['negative'] > topic_sentiment['positive']]
+    top_pol_neg_topics = neg_dominant_topics.sort_values(by='negative', ascending=False).head(10).index.tolist()
 
     top_pol_neg_topic_sent = topic_sentiment.loc[top_pol_neg_topics, ['negative', 'positive', 'neutral']]
-    top_pol_neg_topic_sent_percentage = top_pol_neg_topic_sent.div(top_pol_neg_topic_sent.sum(axis=1), axis=0)*100
 
-    if 'Outliers' in top_pol_neg_topic_sent_percentage.index:
-        top_pol_neg_topic_sent_percentage = top_pol_neg_topic_sent_percentage.drop(index='Outliers', axis= 'index')
+    if 'Outliers' in top_pol_neg_topic_sent.index:
+        top_pol_neg_topic_sent = top_pol_neg_topic_sent.drop(index='Outliers', axis= 'index')
 
-    plt.figure(figsize=(10,6))
-    sns.heatmap(top_pol_neg_topic_sent_percentage, annot=True, cmap='YlOrRd')
+    plt.figure(figsize=(8,6))
+    sns.heatmap(top_pol_neg_topic_sent.astype(int), annot=True, cmap='YlOrRd', fmt= 'd')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
-    plt.title('Most polarized topics - negative')
+    plt.title('Top Polarized topics - Negative')
     plt.show()
