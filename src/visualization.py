@@ -2,30 +2,28 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-def sentiment_analysis_by_product(df, product_col = 'product_name', sentiment_col = 'sentiment', top_n=10):
+def sentiment_analysis_by_product(df, product_col = 'product_name', sentiment_col = 'sentiment', top_n=15):
     sent_count = df.groupby(by=['product_name','sentiment']).size().reset_index(name='count')
-
     total_sent = sent_count.groupby(by='product_name')['count'].sum().reset_index(name='total')
     sent_count = sent_count.merge(total_sent, on='product_name')
     sent_count['proportion']=sent_count['count']/sent_count['total']
 
-    top_products = total_sent.sort_values(by='total', ascending=False).head(10)['product_name']
-    bottom_products = total_sent.sort_values(by='total', ascending=True).head(10)['product_name']
+    top_products = total_sent.sort_values(by='total', ascending=False).head(top_n)['product_name']
 
     sent_df_barplot = sent_count.pivot(index='product_name', columns= 'sentiment', values='proportion')
     sent_df_barplot = sent_df_barplot.merge(total_sent.set_index('product_name'), left_index=True, right_index=True, how='left')
 
-    sent_top_barplot = sent_df_barplot.loc[top_products].fillna(0)
-    sent_bottom_barplot = sent_df_barplot.loc[bottom_products].fillna(0)
+    sent_top_barplot = sent_df_barplot.loc[top_products]
+    sent_top_barplot = sent_top_barplot.fillna(0)
     
-    return sent_top_barplot, sent_bottom_barplot
+    return sent_top_barplot
 
 def stacked_plot(data, title):
     ax=data[['negative', 'neutral', 'positive']].plot(
         kind = 'bar',
         stacked = True,
         color = ['red', 'gray', 'green'],
-        figsize = (12,10)
+        figsize = (15,10)
     )
     for idx, row in data.iterrows():
         cumulative =0
@@ -67,8 +65,8 @@ def plot_top_commented_topics(df, topic_col = 'topic_text', sentiment_col ='sent
     if 'Outliers' in top_topic_sent.index:
         top_topic_sent = top_topic_sent.drop(index='Outliers', axis='index')
 
-    plt.figure(figsize=(8,6))
-    sns.heatmap(top_topic_sent.astype(int), annot=True, cmap='Spectral', fmt = 'd')
+    plt.figure(figsize=(10,6))
+    sns.heatmap(top_topic_sent, annot=True, cmap='Spectral')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
     plt.title('Top 10 topics with most reviews')
@@ -84,8 +82,8 @@ def plot_most_positive_topics(df, topic_col= 'topic_text', sentiment_col='sentim
     if 'Outliers' in top_pol_pos_topic_sent.index:
         top_pol_pos_topic_sent = top_pol_pos_topic_sent.drop(index='Outliers', axis='index')
 
-    plt.figure(figsize=(8,6))
-    sns.heatmaptop_pol_pos_topic_sent.astype(int), annot=True, cmap='YlGnBu', fmt= 'd')
+    plt.figure(figsize=(10,6))
+    sns.heatmap(top_pol_pos_topic_sent, annot=True, cmap='YlGnBu')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
     plt.title('Top 10 Polarized topics - Positive')
@@ -101,7 +99,7 @@ def plot_most_negative_topics(df, topic_col='topic_text', sentiment_col='sentime
     if 'Outliers' in top_pol_neg_topic_sent.index:
         top_pol_neg_topic_sent = top_pol_neg_topic_sent.drop(index='Outliers', axis= 'index')
 
-    plt.figure(figsize=(8,6))
+    plt.figure(figsize=(6,4))
     sns.heatmap(top_pol_neg_topic_sent.astype(int), annot=True, cmap='YlOrRd', fmt= 'd')
     plt.xlabel('Sentiment')
     plt.ylabel('Topics')
