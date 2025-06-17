@@ -16,7 +16,9 @@ This project aims to analyze thousands of beauty product reviews from Sephora, a
 
 ## Data
 
-Metadata:
+Obtained from Kaggle: https://www.kaggle.com/datasets/nadyinky/sephora-products-and-skincare-reviews/data
+
+### Metadata:
 
 Product Data Content
 
