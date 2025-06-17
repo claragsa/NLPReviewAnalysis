@@ -32,30 +32,36 @@ The project uses two datasets:
 ## Exploratory Data Analysis (EDA)
 
 ### Most Popular and Highest-Rated Products
+![Top 20 Most Reviewed Products](images/top_20_most_reviewed_products.png)
+![Top 20 Highest Rated Products](images/top_20_highest_rated_products.png)
 
 💡 The most popular products are not necessarily the highest-rated ones, suggesting that niche items may have better acceptance, while popular products tend to have diluted averages.
 
 ---
 
 ### Most Popular vs. Highest-Rated Brands
+![Top 20 Most Reviewed Products](images/top_20_most_reviewed_brands.png)
+![Top 20 Highest Rated Brands](images/top_20_highest_rated_brands.png)
 
 💡 The pattern repeats for brands — the most reviewed are not the best rated. Niche brands with loyal audiences stand out positively.
 
 ---
 
 ### Rating Distribution
-
+![Rating Distribution](images/rating_distribuition.png)
 💡 The distribution is right-skewed. Most reviews have high ratings, highlighting overall customer satisfaction.
 
 ---
 
 ### Word Cloud
+![Word Cloud](images/wordcloud.png)
 
 💡 Terms related to skincare, such as “skin,” “cream,” “moisturizer,” “love,” and “great,” are predominant. This reinforces the success of the skincare line and the positive sentiment.
 
 ---
 
 ### Temporal Analysis
+![Temporal Analysis](images/temporal_analysis.png)
 
 💡 The chart shows a trend toward more positive and less dispersed reviews starting in 2020, suggesting a possible improvement in product quality or a change in consumer behavior over time.
 
@@ -65,6 +71,7 @@ The project uses two datasets:
 
 ### Sentiment
 
+![Sentiments Proportion](images/sentiment_proportion.png)
 💡 Among the 15 most-reviewed products, most reviews are positive, with proportions above 50%. Only two products show a more mixed sentiment, but still with the majority being positive (over 40%).
 
 ---
