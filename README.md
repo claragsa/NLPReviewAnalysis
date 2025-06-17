@@ -1,139 +1,111 @@
-# 🧴 Sephora Product Review Analysis with NLP and Visualizations
+# Product Review Analysis of Sephora Using NLP and Visualizations
 
-This project aims to analyze thousands of product reviews from Sephora to answer key business questions about popularity, customer perception, most discussed topics, and overall sentiment. By applying NLP techniques and exploratory data analysis, we extract insights that can guide marketing and product development strategies.
+This project aims to analyze thousands of beauty product reviews from Sephora, answering key questions about popularity, customer perception, most discussed topics, and user sentiment. Using NLP techniques and exploratory analysis, we seek insights that can support the company in marketing strategies and product development.
 
 ---
 
-## 🧠 Business Questions
+## Business Questions
 
 - Which products have the most reviews?
 - Which products and brands are the highest rated?
 - What is the overall sentiment of reviews by product type?
 - What are the main topics mentioned in the reviews?
-- Which topics have more positive or negative sentiment?
+- Which topics show the most positive or negative sentiments?
 
 ---
 
-## 📦 Data
+## Data
 
 The project uses two datasets:
 
 - `df_info`: Product information (name, brand, rating, number of reviews, etc.)
-- `dfs_reviews`: A list of DataFrames containing review texts and metadata (rating, recommendation, date, etc.)
+- `dfs_reviews`: A list with five DataFrames containing textual reviews and metadata (rating, recommendation, date, etc.)
 
 ### Preprocessing
+
 - Removal of irrelevant columns (`Unnamed: 0`)
-- Elimination of missing values in key columns (rating, reviews, review_text, etc.)
-- Text tokenization, cleaning, and normalization
+- Elimination of null values in critical columns (rating, reviews, review_text, etc.)
+- Tokenization, cleaning, and normalization of text
 
 ---
 
-## 🔍 Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
-### Most Popular and Highest Rated Products
+### Most Popular and Highest-Rated Products
 
-![Top 20 Most Reviewed Products](INSERT_IMAGE_PATH1)
-![Top 20 Highest Rated Products](INSERT_IMAGE_PATH2)
-
-💡 The most popular products are not necessarily the highest rated, suggesting that niche products often have better acceptance, while popularity dilutes the average rating.
+💡 The most popular products are not necessarily the highest-rated ones, suggesting that niche items may have better acceptance, while popular products tend to have diluted averages.
 
 ---
 
-### Most Popular vs. Best Rated Brands
+### Most Popular vs. Highest-Rated Brands
 
-![Top 20 Most Reviewed Brands](INSERT_IMAGE_PATH3)
-![Top 20 Highest Rated Brands](INSERT_IMAGE_PATH4)
-
-💡 The same pattern applies to brands — the most reviewed are not always the best rated. Niche brands with loyal customers stand out positively.
+💡 The pattern repeats for brands — the most reviewed are not the best rated. Niche brands with loyal audiences stand out positively.
 
 ---
 
 ### Rating Distribution
 
-![Ratings Histogram](INSERT_IMAGE_PATH5)
-
-💡 The distribution is right-skewed. Most reviews have high ratings, indicating high customer satisfaction overall.
+💡 The distribution is right-skewed. Most reviews have high ratings, highlighting overall customer satisfaction.
 
 ---
 
 ### Word Cloud
 
-![Wordcloud of Reviews](INSERT_IMAGE_PATH6)
-
-💡 Words like “skin”, “cream”, “hydrating”, “love”, and “good” dominate. This highlights the success of the skincare segment and a generally positive tone in reviews.
+💡 Terms related to skincare, such as “skin,” “cream,” “moisturizer,” “love,” and “great,” are predominant. This reinforces the success of the skincare line and the positive sentiment.
 
 ---
 
 ### Temporal Analysis
 
-![Review Trends Over Time](INSERT_IMAGE_PATH7)
-
-💡 There's a noticeable drop in ratings in 2020 followed by recovery. This might reflect external events (e.g., pandemic) or product/marketing changes.
+💡 The chart shows a trend toward more positive and less dispersed reviews starting in 2020, suggesting a possible improvement in product quality or a change in consumer behavior over time.
 
 ---
 
-## 💬 Natural Language Processing (NLP)
+## Natural Language Processing (NLP)
 
-### Sentiment Analysis
+### Sentiment
 
-![Sentiment of Top 20 Products](INSERT_IMAGE_PATH8)
-
-💡 Among the 20 most reviewed products, more than 60% of reviews are negative — except for just two products.
+💡 Among the 15 most-reviewed products, most reviews are positive, with proportions above 50%. Only two products show a more mixed sentiment, but still with the majority being positive (over 40%).
 
 ---
 
-### Topic Modeling with BERTopic
+### Topics with BERTopic
 
 - **50 unique topics** were extracted using BERTopic to reduce redundancy.
 
-#### Most Discussed Topics
-
-![Most Frequent Topics](INSERT_IMAGE_PATH9)
+### Most Discussed Topics
 
 💡 Skincare-related topics dominate — moisturizers, sunscreens, serums, etc.
 
-#### Most Positive Topics
+### Most Positive Topics
 
-![Most Positive Topics](INSERT_IMAGE_PATH10)
+💡 The most popular topics are also closely related to skincare. Additionally, issues like oily skin, dark circles, and chapped lips appear to be well addressed by the products.
 
-💡 The most popular topics also tend to be the most positively rated.
+### Most Negative Topics
 
-#### Most Negative Topics
+💡 It is not possible to gather 10 topics where negative sentiment is predominant. Thus, the main complaints revolve around:
 
-![Most Negative Topics](INSERT_IMAGE_PATH11)
-
-💡 Complaints revolve around:
-- “NuFace” brand
-- Sample sizes
-- Formula changes
-- Allergic reactions
+- Packaging that doesn't work properly  
+- Changes in formulas that customers disliked  
+- Products that caused a burning sensation on sensitive skin  
 
 ---
 
-## 📈 Insights & Recommendations
+## Insights and Recommended Actions
 
 ### For the Marketing Team:
-- Highlight and promote products and topics with the most positive sentiment — especially **skincare**
-- Give visibility to niche, well-rated products
 
-### For the Product/Partner Teams:
-- Investigate low-rated products like the **Trinity + Eye and Lip Enhancer**
-- Re-evaluate **sample policies**
-- **Report to brands** issues regarding formulas or adverse reactions
+- Leverage campaigns around the highest-rated products and topics, especially **skincare**
+- Promote well-rated niche products
 
----
+### For the Product/Partner Team:
 
-## ✅ Conclusion
-
-Sephora offers excellent product curation, with high customer satisfaction overall. The dominance of skincare in reviews reveals an opportunity to double down on this segment. Sentiment and topic analysis proved effective in uncovering customer pain points and desires at scale.
+- Investigate products that had formula changes and consider reverting to the previous formula  
+- Review packaging for products reported to have quick defects  
+- **Report to brands** any issues related to formulas or allergic reactions
 
 ---
 
-## 🔧 Future Improvements
+## Conclusion
 
-- Implement parallelization to speed up sentiment analysis
-- Analyze reviews by customer age group (if data available)
-- Build an interactive dashboard using Streamlit or Power BI
-- Automatically classify reviews by category (skincare, perfume, makeup, etc.)
-
----
+Sephora demonstrates excellent product curation, with very high levels of customer satisfaction. The dominance of skincare products in the reviews highlights an opportunity to strengthen this segment. Sentiment and topic analysis proved to be an effective tool for understanding customer pain points and desires at scale.
