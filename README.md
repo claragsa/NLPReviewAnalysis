@@ -137,15 +137,15 @@ The project uses two datasets:
 - **50 unique topics** were extracted using BERTopic to reduce redundancy.
 
 ### Most Discussed Topics
-
+![Heatmap Most Discussed Topics X Sentiments](images/top_commented_topics.png)
 💡 Skincare-related topics dominate — moisturizers, sunscreens, serums, etc.
 
 ### Most Positive Topics
-
+![Heatmap Most Positive Topics](images/polarized_positive_topics.png)
 💡 The most popular topics are also closely related to skincare. Additionally, issues like oily skin, dark circles, and chapped lips appear to be well addressed by the products.
 
 ### Most Negative Topics
-
+![Heatmap Most Negative Topics](images/polarized_negative_topics.png)
 💡 It is not possible to gather 10 topics where negative sentiment is predominant. Thus, the main complaints revolve around:
 
 - Packaging that doesn't work properly  
